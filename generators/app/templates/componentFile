@@ -1,0 +1,16 @@
+import React, { Component } from 'react';
+
+class <%= componentName %> extends Component {
+  render() {
+    <% if (needStylesheet) { %>
+    const style = require('./<%= stylesheetFile %>');
+    <% } %>
+    return (
+      <div <% if (needStylesheet) { %>className={style.container}<% } %>>
+        <h1> <%= componentName %> </h1>
+      </div>
+    );
+  }
+}
+
+export default <%= componentName %>;
