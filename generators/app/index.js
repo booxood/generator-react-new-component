@@ -28,8 +28,8 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Choices component path:',
       choices: function() {
         var dirs = [];
-        var reg = new RegExp('^client/(component|container)(s)?/([a-z]*/)*$');
-        var entries = walkSync.entries('.', {globs: ['client/**/*']})
+        var reg = new RegExp('^(client|app|src)/(component|container)(s)?/([a-z]*/)*$');
+        var entries = walkSync.entries('.', {globs: ['client/**/*', 'app/**/*', 'src/**/*']})
         entries.forEach(function(entry) {
           if (entry.isDirectory() && reg.test(entry.relativePath)) {
             dirs.push(entry.relativePath);
@@ -80,7 +80,7 @@ module.exports = yeoman.generators.Base.extend({
       stylesheetFullPath += '/' + this.props.componentName + '/' + stylesheetName;
     } else {
       jsFullPath += jsName;
-      stylesheetFullPath += stylesheetName;      
+      stylesheetFullPath += stylesheetName;
     }
 
     this.fs.copyTpl(
