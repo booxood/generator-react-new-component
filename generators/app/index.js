@@ -37,6 +37,7 @@ module.exports = yeoman.generators.Base.extend({
         });
         return dirs;
       },
+      store: true,
       default: 'client/components/'
     }, {
       type: 'confirm',
@@ -48,6 +49,7 @@ module.exports = yeoman.generators.Base.extend({
       name: 'jsExtension',
       message: 'Choices component file extension:',
       choices: ['js', 'jsx'],
+      store: true,
       default: 'jsx'
     }, {
       type: 'list',
@@ -60,6 +62,7 @@ module.exports = yeoman.generators.Base.extend({
         'less',
         'scss'
       ],
+      store: true,
       default: 'css'
     }];
 
