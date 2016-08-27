@@ -19,18 +19,18 @@ module.exports = yeoman.generators.Base.extend({
       type: 'input',
       name: 'componentName',
       message: 'What\'s name new component?',
-      validate: function() {
+      validate: function () {
         return true;
       }
     }, {
       type: 'list',
       name: 'componentPath',
       message: 'Choices component path:',
-      choices: function() {
+      choices: function () {
         var dirs = [];
         var reg = new RegExp('^(client|app|src)/(component|container)(s)?/([a-z]*/)*$');
-        var entries = walkSync.entries('.', {globs: ['client/**/*', 'app/**/*', 'src/**/*']})
-        entries.forEach(function(entry) {
+        var entries = walkSync.entries('.', {globs: ['client/**/*', 'app/**/*', 'src/**/*']});
+        entries.forEach(function (entry) {
           if (entry.isDirectory() && reg.test(entry.relativePath)) {
             dirs.push(entry.relativePath);
           }
@@ -56,7 +56,7 @@ module.exports = yeoman.generators.Base.extend({
       name: 'stylesheetExtension',
       message: 'Choices no need component stylesheet file or extension:',
       choices: [
-        { name: 'no need stylesheet file', value: false },
+        {name: 'no need stylesheet file', value: false},
         new inquirer.Separator(),
         'css',
         'less',
@@ -89,12 +89,14 @@ module.exports = yeoman.generators.Base.extend({
     this.fs.copyTpl(
       this.templatePath('componentFile'),
       this.destinationPath(jsFullPath),
-      { componentName:  this.props.componentName,
-        needStylesheet: !!this.props.stylesheetExtension,
-        stylesheetFile:  stylesheetName }
+      {
+        componentName: this.props.componentName,
+        needStylesheet: Boolean(this.props.stylesheetExtension),
+        stylesheetFile: stylesheetName
+      }
     );
 
-    if (!!this.props.stylesheetExtension) {
+    if (Boolean(this.props.stylesheetExtension)) {
       this.fs.copy(
         this.templatePath('stylesheetFile'),
         this.destinationPath(stylesheetFullPath)
