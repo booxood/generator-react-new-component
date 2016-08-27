@@ -6,6 +6,8 @@ var yosay = require('yosay');
 var inquirer = require('inquirer');
 var walkSync = require('walk-sync');
 
+var util = require('./util');
+
 module.exports = yeoman.generators.Base.extend({
   prompting: function () {
     var done = this.async();
@@ -28,7 +30,7 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Choices component path:',
       choices: function () {
         var dirs = [];
-        var reg = new RegExp('^(client|app|src)/(component|container)(s)?/([a-z]*/)*$');
+        var reg = new RegExp('^(client|app|src)/(component|container|view|)(s)?/([a-z]*/)*$');
         var entries = walkSync.entries('.', {globs: ['client/**/*', 'app/**/*', 'src/**/*']});
         entries.forEach(function (entry) {
           if (entry.isDirectory() && reg.test(entry.relativePath)) {
@@ -73,14 +75,15 @@ module.exports = yeoman.generators.Base.extend({
   },
 
   writing: function () {
-    var jsName = this.props.componentName + '.' + this.props.jsExtension;
-    var stylesheetName = this.props.componentName + '.' + this.props.stylesheetExtension;
+    var fileName = util.hyphenate(this.props.componentName);
+    var jsName = fileName + '.' + this.props.jsExtension;
+    var stylesheetName = fileName + '.' + this.props.stylesheetExtension;
     var jsFullPath = this.props.componentPath;
     var stylesheetFullPath = this.props.componentPath;
 
     if (this.props.isComponentDir) {
-      jsFullPath += '/' + this.props.componentName + '/' + jsName;
-      stylesheetFullPath += '/' + this.props.componentName + '/' + stylesheetName;
+      jsFullPath += '/' + fileName + '/' + jsName;
+      stylesheetFullPath += '/' + fileName + '/' + stylesheetName;
     } else {
       jsFullPath += jsName;
       stylesheetFullPath += stylesheetName;

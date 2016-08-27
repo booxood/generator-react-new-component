@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+
+<% if (needStylesheet) { %>
+const style = require('./<%= stylesheetFile %>')
+<% } %>
 
 class <%= componentName %> extends Component {
   render() {
-    <% if (needStylesheet) { %>
-    const style = require('./<%= stylesheetFile %>');
-    <% } %>
     return (
       <div <% if (needStylesheet) { %>className={style.container}<% } %>>
         <h1> <%= componentName %> </h1>
       </div>
-    );
+    )
   }
 }
 
-export default <%= componentName %>;
+export default <%= componentName %>
