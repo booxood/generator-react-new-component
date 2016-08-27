@@ -16,12 +16,19 @@ module.exports = yeoman.generators.Base.extend({
     this.log(yosay(
       'Welcome to the gnarly ' + chalk.red('generator-react-new-component') + ' generator!'
     ));
+    var log = this.log;
 
     var prompts = [{
       type: 'input',
       name: 'componentName',
       message: 'What\'s name new component?',
-      validate: function () {
+      validate: function (value) {
+        if (!util.isCamelized(value)) {
+          log(
+            chalk.red('\nComponent name use CamelCased! Example: HelloWorld.')
+          );
+          return false;
+        }
         return true;
       }
     }, {
