@@ -1,4 +1,5 @@
 'use strict';
+var path = require('path');
 var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
@@ -88,17 +89,19 @@ module.exports = yeoman.generators.Base.extend({
 
   writing: function () {
     var fileName = util.hyphenate(this.props.componentName);
+    var componentPath = this.props.componentPath;
     var jsName = fileName + '.' + this.props.jsExtension;
     var stylesheetName = fileName + '.' + this.props.stylesheetExtension;
-    var jsFullPath = this.props.componentPath;
-    var stylesheetFullPath = this.props.componentPath;
+    // var jsFullPath = this.props.componentPath;
+    var jsFullPath = '';
+    var stylesheetFullPath = '';
 
     if (this.props.isComponentDir) {
-      jsFullPath += '/' + fileName + '/' + jsName;
-      stylesheetFullPath += '/' + fileName + '/' + stylesheetName;
+      jsFullPath = path.join(componentPath, fileName, jsName);
+      stylesheetFullPath = path.join(componentPath, fileName, stylesheetName);
     } else {
-      jsFullPath += jsName;
-      stylesheetFullPath += stylesheetName;
+      jsFullPath = path.join(componentPath, jsName);
+      stylesheetFullPath = path.join(componentPath, stylesheetName);
     }
 
     this.fs.copyTpl(
