@@ -1,11 +1,23 @@
-import React, { Component } from 'react'
-
+import React, { Component<% if (isAddProps) { %>, PropTypes<% } %> } from 'react'
 <% if (needStylesheet) { %>
 const style = require('./<%= stylesheetFile %>')
 <% } %>
-
 class <%= componentName %> extends Component {
-  render() {
+  constructor (props) {
+    super(props)
+    <% if (isAddProps) { %>
+    this.state = {
+      count: props.initialCount
+    }
+
+    this.tick = this._tick.bind(this)<% } %>
+  }
+  <% if (isAddProps) { %>
+  _tick () {
+    this.setState({count: this.state.count + 1})
+  }
+  <% } %>
+  render () {
     return (
       <div <% if (needStylesheet) { %>className={style.container}<% } %>>
         <h1> <%= componentName %> </h1>
@@ -13,5 +25,12 @@ class <%= componentName %> extends Component {
     )
   }
 }
-
+<% if (isAddProps) { %>
+<%= componentName %>.propTypes = {
+  initialCount: PropTypes.number
+}
+<%= componentName %>.defaultProps = {
+  initialCount: 0
+}
+<% } %>
 export default <%= componentName %>

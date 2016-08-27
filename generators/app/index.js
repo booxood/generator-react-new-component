@@ -61,6 +61,11 @@ module.exports = yeoman.generators.Base.extend({
       store: true,
       default: 'jsx'
     }, {
+      type: 'confirm',
+      name: 'isAddProps',
+      message: 'Whether to add props and state?',
+      default: true
+    }, {
       type: 'list',
       name: 'stylesheetExtension',
       message: 'Choices no need component stylesheet file or extension:',
@@ -101,6 +106,7 @@ module.exports = yeoman.generators.Base.extend({
       this.destinationPath(jsFullPath),
       {
         componentName: this.props.componentName,
+        isAddProps: this.props.isAddProps,
         needStylesheet: Boolean(this.props.stylesheetExtension),
         stylesheetFile: stylesheetName
       }
