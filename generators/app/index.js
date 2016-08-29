@@ -48,7 +48,8 @@ module.exports = yeoman.generators.Base.extend({
         return dirs;
       },
       store: true,
-      default: 'client/components/'
+      // TODO: default no effect
+      default: 0
     }, {
       type: 'confirm',
       name: 'isComponentDir',
