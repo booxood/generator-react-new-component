@@ -38,7 +38,7 @@ module.exports = yeoman.generators.Base.extend({
       message: 'Choices component path:',
       choices: function () {
         var dirs = [];
-        var reg = new RegExp('^(client|app|src)/(component|container|view|)(s)?/([a-z]*/)*$');
+        var reg = new RegExp('^(client|app|src)/(component|container|view|)(s)?/([a-z|-]*/)*$');
         var entries = walkSync.entries('.', {globs: ['client/**/*', 'app/**/*', 'src/**/*']});
         entries.forEach(function (entry) {
           if (entry.isDirectory() && reg.test(entry.relativePath)) {
